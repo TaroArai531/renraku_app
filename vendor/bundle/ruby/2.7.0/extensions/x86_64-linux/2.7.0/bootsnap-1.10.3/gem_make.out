@@ -1,0 +1,15 @@
+current directory: /myapp/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.10.3/ext/bootsnap
+/usr/local/bin/ruby -I /usr/local/lib/ruby/2.7.0 -r ./siteconf20220212-9-1npshfa.rb extconf.rb
+creating Makefile
+
+current directory: /myapp/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.10.3/ext/bootsnap
+make "DESTDIR=" clean
+
+current directory: /myapp/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.10.3/ext/bootsnap
+make "DESTDIR="
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.so
+
+current directory: /myapp/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.10.3/ext/bootsnap
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bootsnap.so ./.gem.20220212-9-pcqia8/bootsnap

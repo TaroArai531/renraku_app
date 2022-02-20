@@ -15,15 +15,21 @@ services:
       - "3000:3000"
     env_file:
       - .env
+    environment:
+      SELENIUM_DRIVER_URL: "http://selenium_chrome:4444/wd/hub"
     volumes:
       - .:/renraku_app
     depends_on:
       - db
+      - chrome
     networks:
       - default
     tty: true
     stdin_open: true
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-
+  chrome:
+    image: selenium/standalone-chrome:latest
+    ports:
+      - 4444:4444
 volumes:
   mysql_data:

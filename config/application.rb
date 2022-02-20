@@ -18,5 +18,20 @@ module Myapp
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.time_zone = 'Tokyo'
+    config.generators.test_framework = :rspec
+    config.generators.system_tests   = false
+    config.generators.stylesheets    = false
+    config.generators.javascripts    = false
+    config.generators.helper         = false
+
+    config.generators do |g|
+      g.test_framework :rspec,
+        view_specs: false,
+        helper_specs: false,
+        routing_specs: false,
+        controller_specs: false,
+        model_specs: false
+    end
   end
 end

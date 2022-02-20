@@ -7,6 +7,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
                        libpq-dev \
                        mariadb-client \
                        nodejs \
+                       graphviz \
                        yarn && \
     apt-get clean && \
     rm --recursive --force /var/lib/apt/lists/*

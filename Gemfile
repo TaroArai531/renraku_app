@@ -30,6 +30,7 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails'
 gem 'bootstrap', '~> 5.1', '>= 5.1.3'
 gem 'popper_js', '~> 2.9', '>= 2.9.3'
+gem "net-smtp"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

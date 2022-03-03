@@ -22,6 +22,7 @@ services:
     depends_on:
       - db
       - chrome
+      - redis
     networks:
       - default
     tty: true
@@ -31,5 +32,11 @@ services:
     image: selenium/standalone-chrome:latest
     ports:
       - 4444:4444
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    volumes:
+      - "./app/redis:/data"
 volumes:
   mysql_data:

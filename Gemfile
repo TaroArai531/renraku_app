@@ -30,8 +30,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'dotenv-rails'
 gem 'bootstrap', '~> 5.1', '>= 5.1.3'
 gem 'popper_js', '~> 2.9', '>= 2.9.3'
-gem "net-smtp"
-gem "devise"
+gem 'net-smtp'
+gem 'devise'
+gem 'redis'
+gem 'redis-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -40,8 +42,8 @@ group :development, :test do
   gem 'pry-doc'
   gem 'pry-byebug'
   gem 'rubocop', require: false
-  gem "rubocop-rails", require: false
-  gem "rubocop-rspec", require: false
+  gem 'rubocop-rails', require: false
+  gem 'rubocop-rspec', require: false
   gem 'rails-erd'
   gem 'annotate'
   gem 'rspec-rails'

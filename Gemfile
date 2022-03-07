@@ -33,7 +33,8 @@ gem 'popper_js', '~> 2.9', '>= 2.9.3'
 gem 'net-smtp'
 gem 'devise'
 gem 'redis'
-gem 'redis-rails'
+gem 'sidekiq'
+gem 'sinatra', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

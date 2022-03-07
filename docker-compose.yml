@@ -17,6 +17,7 @@ services:
       - .env
     environment:
       SELENIUM_DRIVER_URL: "http://selenium_chrome:4444/wd/hub"
+      REDIS_URL: redis://redis:6379
     volumes:
       - .:/renraku_app
     depends_on:
@@ -33,10 +34,11 @@ services:
     ports:
       - 4444:4444
   redis:
-    image: redis:latest
+    image: redis
     ports:
       - 6379:6379
     volumes:
-      - "./app/redis:/data"
+      - "./data/redis:/data"
+    command: redis-server --appendonly yes
 volumes:
   mysql_data:

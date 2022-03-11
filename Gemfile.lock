@@ -99,6 +99,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-i18n (1.10.2)
+      devise (>= 4.8.0)
     diff-lcs (1.5.0)
     digest (3.1.0)
     dotenv (2.7.6)
@@ -339,6 +341,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  devise-i18n
   dotenv-rails
   factory_bot_rails
   jbuilder (~> 2.7)

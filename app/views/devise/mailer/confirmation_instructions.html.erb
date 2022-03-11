@@ -1,5 +1,9 @@
+<p>※こちらは自動送信メールです。</p>
+
 <p>Welcome <%= @email %>!</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p><%= ENV['APP_NAME'] %>にご登録いただき、ありがとうございます。</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p>下記のリンクからアカウントメールの認証をお願いいたします。</p>
+
+<p><%= link_to 'メールの認証はこちらをクリック', confirmation_url(@resource, confirmation_token: @token) %></p>

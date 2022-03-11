@@ -32,6 +32,7 @@ gem 'bootstrap', '~> 5.1', '>= 5.1.3'
 gem 'popper_js', '~> 2.9', '>= 2.9.3'
 gem 'net-smtp'
 gem 'devise'
+gem 'devise-i18n'
 gem 'redis'
 gem 'sidekiq'
 gem 'sinatra', require: false

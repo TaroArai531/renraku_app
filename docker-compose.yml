@@ -9,6 +9,7 @@ services:
       - .env
     ports:
       - "3306:3306"
+
   web:
     build: .
     ports:
@@ -29,16 +30,31 @@ services:
     tty: true
     stdin_open: true
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+
   chrome:
     image: selenium/standalone-chrome:latest
     ports:
       - 4444:4444
+
   redis:
     image: redis
     ports:
       - 6379:6379
     volumes:
-      - "./data/redis:/data"
+      - ./data/redis:/data
     command: redis-server --appendonly yes
+
+  sidekiq:
+    build: .
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    volumes:
+      - .:/renraku_app
+      - ./data/redis:/data
+    depends_on:
+      - db
+      - redis
+    environment:
+      REDIS_URL: redis://redis:6379
+
 volumes:
   mysql_data:

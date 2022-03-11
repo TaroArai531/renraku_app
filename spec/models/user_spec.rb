@@ -8,6 +8,7 @@
 #  confirmed_at           :datetime
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
+#  name                   :string(255)
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
@@ -19,6 +20,7 @@
 #
 #  index_users_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_name                  (name) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 require 'rails_helper'

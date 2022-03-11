@@ -13,6 +13,7 @@ module Myapp
 
     config.active_job.queue_adapter = :sidekiq
 
+    config.read_encrypted_secrets = true
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

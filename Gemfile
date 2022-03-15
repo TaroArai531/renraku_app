@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.1.1'
+ruby '2.7.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
@@ -36,6 +36,7 @@ gem 'devise-i18n'
 gem 'redis'
 gem 'sidekiq'
 gem 'sinatra', require: false
+gem 'paperclip', '~> 6.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -43,9 +44,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'pry-doc'
   gem 'pry-byebug'
-  gem 'rubocop', require: false
-  gem 'rubocop-rails', require: false
-  gem 'rubocop-rspec', require: false
+  gem 'rubocop-airbnb'
   gem 'rails-erd'
   gem 'annotate'
   gem 'rspec-rails'

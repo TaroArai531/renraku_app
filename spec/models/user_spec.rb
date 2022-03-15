@@ -9,6 +9,10 @@
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  name                   :string(255)
+#  picture_content_type   :string(255)
+#  picture_file_name      :string(255)
+#  picture_file_size      :bigint
+#  picture_updated_at     :datetime
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)

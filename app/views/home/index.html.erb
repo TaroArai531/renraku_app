@@ -1,14 +1,18 @@
 <% provide(:title, "HOME") %>
 <section class="mainContent clearfix">
   <div class="container">
-    <h1>Hello, <%= @user.name %>!</h1>
-    <button type="button" class="btn btn-primary">Primary</button>
-    <button type="button" class="btn btn-secondary">Secondary</button>
-    <button type="button" class="btn btn-success">Success</button>
-    <button type="button" class="btn btn-danger">Danger</button>
-    <button type="button" class="btn btn-warning">Warning</button>
-    <button type="button" class="btn btn-info">Info</button>
-    <button type="button" class="btn btn-light">Light</button>
-    <button type="button" class="btn btn-dark">Dark</button>
+    <div class="row">
+      <div class="col-md-3 col-12 d-none d-md-block">
+        <div class="card p-2">
+          <%= image_tag current_user.picture.url, class: "card-img-top rounded-circle" %>
+          <div class="card-body">
+            <h4 class="card-title"><%= "#{@user.name}" %></h4>
+            <p class="card-text">
+              <span class="text-secondary">ユーザー情報</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

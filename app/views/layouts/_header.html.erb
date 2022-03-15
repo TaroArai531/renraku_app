@@ -10,6 +10,9 @@
       <% if user_signed_in? %>
         <ul class="nav justify-content-end">
           <li class="nav-item">
+            <%= image_tag current_user.picture.url, class: "rounded-circle", style: "width: 50px;" %>
+          </li>
+          <li class="nav-item">
             <%= link_to "プロフィール編集", edit_user_registration_path, class: "nav-link text-secondary" %>
           </li>
           <li class="nav-item">

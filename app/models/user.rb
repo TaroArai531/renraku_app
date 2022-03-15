@@ -9,6 +9,10 @@
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  name                   :string(255)
+#  picture_content_type   :string(255)
+#  picture_file_name      :string(255)
+#  picture_file_size      :bigint
+#  picture_updated_at     :datetime
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
@@ -26,23 +30,23 @@
 class User < ApplicationRecord
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
-  validates_format_of :name, { with: /^[a-zA-Z_\s]*$/, multiline: true }
+  validates :name, format: { with: /^[a-zA-Z_\s]*$/, multiline: true }
   validate :validate_name
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
 
+  has_attached_file :picture,
+                    style: { medium: '300x300', thumb: '100x100' },
+                    default_url: '/default_user_icon.png'
+
+  validates_attachment_content_type :picture, content_type: %r{\Aimage/.*\z}
+
   attr_accessor :login
 
-  attr_writer :login
-
-  def login
-    @login || name || email
-  end
-
   def validate_name
-    errors.add(:name, :invalid) if User.where(email: name).exists?
+    errors.add(:name, :invalid) if User.exists?(email: name)
   end
 
   def send_devise_notification(notification, *args)
@@ -55,8 +59,10 @@ class User < ApplicationRecord
     login = conditions.delete(:login)
 
     where(conditions.to_hash).where(
-      ['lower(name) = :value OR lower(email) = :value',
-       { value: login.downcase }]
+      [
+        'lower(name) = :value OR lower(email) = :value',
+        { value: login.downcase },
+      ]
     ).first
   end
 end

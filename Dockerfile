@@ -8,7 +8,8 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
                        mariadb-client \
                        nodejs \
                        graphviz \
-                       yarn && \
+                       yarn \
+                       vim && \
     apt-get clean && \
     rm --recursive --force /var/lib/apt/lists/*
 
@@ -28,7 +29,11 @@ RUN mkdir /renraku_app
 WORKDIR /renraku_app
 COPY Gemfile /renraku_app/Gemfile
 COPY Gemfile.lock /renraku_app/Gemfile.lock
-RUN bundle install
+
+ENV BUNDLER_VERSION 2.3.9
+RUN gem update --system \
+    && gem install bundler -v $BUNDLER_VERSION \
+    && bundle install
 COPY . renraku_app
 
 COPY entrypoint.sh /usr/bin/

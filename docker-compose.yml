@@ -19,6 +19,9 @@ services:
     environment:
       SELENIUM_DRIVER_URL: "http://selenium_chrome:4444/wd/hub"
       REDIS_URL: redis://redis:6379
+      region: ap-northeast-1
+      access_key_id: AWS_ACCESS_KEY_ID
+      secret_access_key: AWS_SECRET_ACCESS_KEY
     volumes:
       - .:/renraku_app
     depends_on:

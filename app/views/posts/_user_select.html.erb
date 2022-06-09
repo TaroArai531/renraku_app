@@ -1,0 +1,18 @@
+<% @admin.each do |admin| %>
+  <div class="row border-bottom pt-3">
+    <%= link_to post_path(admin.id), class:"plain" do %>
+      <div class="d-flex justify-content-center align-items-center">
+        <div class="px-2">
+          <% if admin.picture.attached? %>
+            <%= image_tag admin.picture.variant( resize: "75x75^", gravity: "center", crop: "75x75+0+0" ).processed, class: "rounded-circle" %>
+          <% else %>
+            <%= image_tag 'default_user_icon.png', class: "rounded-circle", style: "width: 75px; height: 75px;" %>
+          <% end %>
+        </div>
+        <div class="px-2 fs-3">
+          <%= admin.name %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

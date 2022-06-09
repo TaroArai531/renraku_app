@@ -1,0 +1,53 @@
+<% provide(:title, "連絡帳") %>
+<div class="container clearfix">
+  <h4><%= @post.created_at&.strftime("%-m月%-d日(#{%w(日 月 火 水 木 金 土)[@post.created_at.wday]})") %></h4>
+  <table>
+    <tbody>
+      <tr>
+        <td class="td-color1" scope="row">前夜</td>
+        <td class="td-color2 width30""><span class="material-icons md-18">bedtime</span>就寝</td>
+        <td class="td-color2"><%= @post.sleep&.strftime('%-H:%M') %></td>
+      </tr>
+      <tr>
+        <td class="td-color3" rowspan="4" scope="row">今朝</td>
+        <td class="td-color4 width30""><span class="material-icons md-18">sunny</span>起床</td>
+        <td class="td-color4"><%= @post.wake_up&.strftime('%-H:%M') %></td>
+      </tr>
+      <tr>
+        <td class="td-color4 width30""><span class="material-icons md-18">thermostat</span>体温</td>
+        <td class="td-color4"><%= @post.temperature.to_f %>℃</td>
+      </tr>
+      <tr>
+        <td class="td-color4 width30""><span class="material-icons md-18">emoji_people</span>お迎え</td>
+        <td class="td-color4"><%= @post.pick_up %></td>
+      </tr>
+      <tr>
+        <td class="td-color4 width30""><span class="material-icons md-18">schedule</span>迎え時間</td>
+        <td class="td-color4"><%= @post.pick_up_time&.strftime('%-H:%M') %></td>
+      </tr>
+      <tr>
+        <td class="td-color5" rowspan="2" scope="row">その他</td>
+        <td class="td-color6 width30"><span class="material-icons md-18">wc</span>排泄</td>
+        <td class="td-color6">
+          <%= @post.bathroom %><br/>
+          <%= @post.bathroom_time&.strftime('%-H:%M') %>
+        </td>
+      </tr>
+      <tr>
+        <td class="td-color6"><span class="material-icons md-18">comment</span>コメント</td>
+        <td class="td-color6"><%= @post.comment %></td>
+      </tr>
+    </tbody>
+  </table>
+  <% if @post.user_id == current_user.id %>
+    <div class="active text-center my-4">
+      <%= link_to "編集", edit_post_path, class: "btn btn-primary btn-lg fw-bold w-25" %>
+    </div>
+    <div class="active text-center my-4">
+      <%= button_to "削除", post_path, method: :delete, class: "btn btn-outline-secondary btn-lg fw-bold w-25" %>
+    </div>
+  <% end %>
+  <div class="active text-center my-4">
+    <%= button_to "Back", posts_path, method: :get, class: "btn btn-outline-danger btn-lg fw-bold ml-3 w-25" %>
+  </div>
+</div>

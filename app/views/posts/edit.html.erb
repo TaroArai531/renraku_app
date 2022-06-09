@@ -1,0 +1,49 @@
+<% provide(:title, "連絡帳") %>
+<div class="container clearfix">
+  <%= form_with model: @post, local: true do |f| %>
+    <table>
+      <tbody>
+        <tr>
+          <td class="td-color1" scope="row">前夜</td>
+          <td class="td-color2 width30""><span class="material-icons align-bottom">bedtime</span>就寝</td>
+          <td class="td-color2"><%= f.time_field :sleep, value: @post.sleep&.strftime('%H:%M') %></td>
+        </tr>
+        <tr>
+          <td class="td-color3" rowspan="4" scope="row">今朝</td>
+          <td class="td-color4 width30""><span class="material-icons align-bottom">sunny</span>起床</td>
+          <td class="td-color4"><%= f.time_field :wake_up, value: @post.wake_up&.strftime('%H:%M') %></td>
+        </tr>
+        <tr>
+          <td class="td-color4 width30""><span class="material-icons align-bottom">thermostat</span>体温</td>
+          <td class="td-color4"><%= f.number_field :temperature, in: 35.0..42.0, step: 0.1, value: @post.temperature.to_f %>℃</td>
+        </tr>
+        <tr>
+          <td class="td-color4 width30""><span class="material-icons align-bottom">emoji_people</span>お迎え</td>
+          <td class="td-color4"><%= f.select :pick_up, ["お父さん", "お母さん", "お祖父さん", "お祖母さん", "兄弟"], :selected=>@post.pick_up %></td>
+        </tr>
+        <tr>
+          <td class="td-color4 width30""><span class="material-icons align-bottom">schedule</span>迎え時間</td>
+          <td class="td-color4"><%= f.time_field :pick_up_time, value: @post.pick_up_time&.strftime('%H:%M') %></td>
+        </tr>
+        <tr>
+          <td class="td-color5" rowspan="2" scope="row">その他</td>
+          <td class="td-color6 width30"><span class="material-icons align-bottom">wc</span>排泄</td>
+          <td class="td-color6">
+            <%= f.select :bathroom, ["おしっこ", "うんち（普通）", "うんち（軟便）", "うんち（コロコロ）", "うんち（水様）"], class: "mb-2", :selected=>@post.bathroom %><br/>
+            <%= f.time_field :bathroom_time, value: @post.bathroom_time&.strftime('%H:%M') %>
+            </td>
+        </tr>
+        <tr>
+          <td class="td-color6"><span class="material-icons align-bottom">comment</span>コメント</td>
+          <td class="td-color6"><%= f.text_area :comment, class: "form-control", value: @post.comment %></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="active text-center my-4">
+      <%= f.submit "更新", class: "btn btn-lg btn-primary fw-bold w-25" %>
+    </div>
+  <% end %>
+    <div class="active text-center my-4">
+      <%= button_to "Back", posts_path, method: :get, class: "btn btn-outline-danger btn-lg fw-bold ml-3 w-25" %>
+    </div>
+</div>

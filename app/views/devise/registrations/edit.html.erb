@@ -1,57 +1,60 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<% provide(:title, "Profile") %>
+<div class="form-signin">
+  <h1 class="ff-so">Profile</h1>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="py-3">
-    <%= image_tag current_user.picture.url, class: "border rounded w-25" %>
-  </div>
+    <div class="py-3 mb-3">
+      <% if @user.picture.attached? %>
+        <%= image_tag @user.picture.variant( resize: "300x300^", gravity: "center", crop: "300x300+0+0" ).processed, class: "border border-2 rounded-circle w-50" %>
+      <% else %>
+        <%= image_tag 'default_user_icon.png', class: "border border-2 rounded-circle w-50" %>
+      <% end %>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :picture %><br/>
-    <%= f.file_field :picture %>
-  </div>
+    <div class="form-group mb-4">
+      <label for="user_picture", class="pointer">
+        <span class="material-icons md-48">add_a_photo</span>
+        <%= f.file_field :picture, class: "visually-hidden" %>
+      </label>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :name %><br/>
-    <%= f.text_field :name, autofocus: true, class: "form-control col-md-5 col-sm", placeholder: "Usename" %>
-  </div>
+    <div class="form-group mb-2">
+      <%= f.label :name %><br/>
+      <%= f.text_field :name, autofocus: true, class: "form-control col-md-5 col-sm", placeholder: "Usename" %>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :email %><br/>
-    <%= f.email_field :email, class: "form-control col-md-5 col-sm", placeholder: "Email" %>
-  </div>
+    <div class="form-group mb-2">
+      <%= f.label :email %><br/>
+      <%= f.email_field :email, class: "form-control col-md-5 col-sm", placeholder: "Email" %>
+    </div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% if !@user.admin? %>
+      <div class="form-group mb-2">
+        <%= f.label :dob, "誕生日" %><br/>
+        <%= f.date_field :dob, class: "form-control col-md-5 col-sm" %>
+      </div>
+
+      <div class="form-group mb-2">
+        <%= f.label :sex, "性別" %><br/>
+        <%= f.select :sex, ["未選択", "男性", "女性"], { include_blank: true }, { id: "sex", class: "form-select col-md-5 col-sm" }%>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :bloodtype, "血液型" %><br/>
+        <%= f.select :bloodtype, ["未選択", "A型", "AB型", "B型", "O型"], { include_blank: true }, { id: "bloodtype", class: "form-select col-md-5 col-sm" }%>
+      </div>
+    <% end %>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="active pt-3 mb-5">
+      <%= f.submit "更新", class: "btn w-100 btn-lg btn-primary fw-bold" %>
+    </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br/>
-    <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control col-md-5 col-sm", placeholder: "Password" %>
-    <% if @minimum_password_length %>
-      <br/>
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password_confirmation %><br/>
-    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control col-md-5 col-sm", placeholder: "Password confirmation" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off", class: "form-control col-md-5 col-sm", placeholder: "Current password" %>
-  </div>
-
-  <div class="actions pb-5">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger mb-5" %></p>
-
-<%= link_to "Back", :back %>
+  <%= button_to "Back", :back, method: :get, class: "btn btn-outline-danger mb-5" %>
+</div>

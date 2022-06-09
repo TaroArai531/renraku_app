@@ -3,9 +3,12 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  admin                  :boolean          default(FALSE)
+#  bloodtype              :string(255)
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string(255)
 #  confirmed_at           :datetime
+#  dob                    :date
 #  email                  :string(255)      default(""), not null
 #  encrypted_password     :string(255)      default(""), not null
 #  name                   :string(255)
@@ -16,6 +19,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string(255)
+#  sex                    :string(255)
 #  unconfirmed_email      :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
@@ -28,20 +32,33 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
-  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  has_many :posts, dependent: :destroy
+  has_many :boxes, through: :user_boxes
+  has_many :user_boxes, dependent: :destroy
+  has_many :rooms, through: :user_rooms
+  has_many :user_rooms, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :bulletins, dependent: :destroy
+  has_many :newsletters, dependent: :destroy
 
-  validates :name, format: { with: /^[a-zA-Z_\s]*$/, multiline: true }
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :name, format: { with: /^[ぁ-んァ-ヶ一-龠a-zA-Z_\s]*$/, multiline: true }
   validate :validate_name
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
 
-  has_attached_file :picture,
-                    style: { medium: '300x300', thumb: '100x100' },
-                    default_url: '/default_user_icon.png'
+  has_one_attached :picture
 
-  validates_attachment_content_type :picture, content_type: %r{\Aimage/.*\z}
+  before_create :default_image
+
+  def default_image
+    if !picture.attached?
+      picture.attach(io: File.open(Rails.root.join('app', 'assets', 'images', 'default_user_icon.png')),
+                     filename: 'default_user_icon.png', content_type: 'image/png')
+    end
+  end
 
   attr_accessor :login
 

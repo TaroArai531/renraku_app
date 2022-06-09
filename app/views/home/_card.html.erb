@@ -1,0 +1,17 @@
+<div class="card bgc-none p-2">
+  <% if @user.picture.attached? %>
+    <%= image_tag @user.picture.variant( resize: "300x300^", gravity: "center", crop: "300x300+0+0" ).processed, class: "card-img-top mx-auto rounded-circle" %>
+  <% else %>
+    <%= image_tag 'default_user_icon.png', class: "card-img-top mx-auto rounded-circle" %>
+  <% end %>
+  <div class="card-body d-none d-md-block">
+    <h4 class="card-title ff-so"><%= "#{@user.name}" %></h4>
+    <% if !@user.admin? %>
+      <p class="card-text">
+        <span class="text-secondary border-bottom"><%= "#{@user.dob&.strftime("%Y年%m月%d日")}" %></span><br>
+        <span class="text-secondary border-bottom"><%= "#{@user.sex}" %></span><br>
+        <span class="text-secondary border-bottom"><%= "#{@user.bloodtype}" %></span>
+      </p>
+    <% end %>
+  </div>
+</div>

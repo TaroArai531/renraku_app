@@ -1,0 +1,47 @@
+<% provide(:title, "園だより") %>
+<div class="container clearfix">
+  <h1 class="ff-so text-center">Newsletter</h1>
+  <div class="row">
+    <div class="col-12">
+      <div class="form-signin">
+        <% if @user.admin? %>
+          <%= form_with url: "/newsletters", method: :post, local: true do |f| %>
+            <div class="active text-center my-3">
+              <%= f.text_field :title, class: "form-control", placeholder: "タイトル" %>
+              <%= f.file_field :letter, class: "my-3" %>
+              <%= f.submit "アップロード", class: "btn btn-primary btn-lg fw-bold mx-3" %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="row px-3">
+        <% @newsletters.each do |f| %>
+          <table class="table-border-bottom mb-3">
+            <tbody>
+              <tr>
+                <td class="border-none pb-0"><%= f.created_at&.strftime("%-m月%-d日(#{%w(日 月 火 水 木 金 土)[f.created_at.wday]})") %></td>
+              </tr>
+              <tr>
+                <td class="border-none text-secondary">
+                  <%= link_to rails_blob_path(f.letter.attachment) do %>
+                    <p class="fs-5"><%= f.title %><span class="material-icons align-bottom">file_download</span></p>
+                  <% end %>
+                </td>
+              </tr>
+              <% if current_user.admin? %>
+              <tr>
+                <td class="border-none text-secondary">
+                  <%= button_to "ファイル削除", newsletters_path(f), method: :delete %>
+                </td>
+              </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+        <div class="active text-center my-3">
+          <%= button_to "Back", root_path, method: :get, class: "btn btn-outline-danger btn-lg fw-bold mx-3" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

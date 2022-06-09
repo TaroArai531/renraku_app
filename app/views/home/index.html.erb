@@ -1,18 +1,44 @@
 <% provide(:title, "HOME") %>
-<section class="mainContent clearfix">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3 col-12 d-none d-md-block">
-        <div class="card p-2">
-          <%= image_tag current_user.picture.url, class: "card-img-top rounded-circle" %>
-          <div class="card-body">
-            <h4 class="card-title"><%= "#{@user.name}" %></h4>
-            <p class="card-text">
-              <span class="text-secondary">ユーザー情報</span>
-            </p>
-          </div>
+<div class="container clearfix">
+  <div class="row">
+    <div class="col-md-3 col-12">
+      <%= render partial: "card" %>
+    </div>
+    <div class="col-md-9 col-12">
+      <div class="row h-100 text-center align-items-center mt-3 mb-4">
+        <div class="col-6">
+          <%= link_to posts_path, class: "plain" do %>
+            <span class="material-icons md-60 grey">description</span><br>
+            <h5>連絡帳</h5>
+          <% end %>
+        </div>
+        <div class="col-6">
+          <%= link_to bulletins_path, class: "plain" do %>
+            <span class="material-icons md-60 yellow">lightbulb</span><br>
+            <h5>お知らせ</h5>
+          <% end %>
         </div>
       </div>
     </div>
   </div>
-</section>
+  <div class="row">
+    <div class="col-md-3 col-12 d-none d-md-block">
+    </div>
+    <div class="col-md-9 col-12">
+      <div class="row h-100 text-center align-items-center mt-3 mb-4">
+        <div class="col-6">
+          <%= link_to messages_path, class: "plain" do %>
+            <span class="material-icons md-60 green">chat</span><br>
+            <h5>トークルーム</h5>
+          <% end %>
+        </div>
+        <div class="col-6">
+          <%= link_to newsletters_path, class: "plain" do %>
+            <span class="material-icons md-60 pink">local_post_office</span><br>
+            <h5>園だより</h5>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

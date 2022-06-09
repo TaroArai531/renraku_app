@@ -1,0 +1,38 @@
+<div class="form-signin">
+  <h1 class="ff-so">Profile</h1>
+    <div class="py-3 mb-3">
+      <% if @user.picture.attached? %>
+        <%= image_tag @user.picture.variant( resize: "300x300^", gravity: "center", crop: "300x300+0+0" ).processed, class: "border border-2 rounded-circle w-50" %>
+      <% else %>
+        <%= image_tag 'default_user_icon.png', class: "border border-2 rounded-circle w-50" %>
+      <% end %>
+    </div>
+
+    <div class="form-group mb-2">
+      <p class="fw-bold"><%= @user.name %></p>
+    </div>
+
+    <div class="form-group mb-2">
+      <p class="fw-bold"><%= @user.email %></p>
+    </div>
+
+    <% if !@user.admin? %>
+      <div class="form-group mb-2">
+        <p  class="fw-bold"><%= @user.dob&.strftime("%Y年%m月%d日") %></p>
+      </div>
+
+      <div class="form-group mb-2">
+        <p class="fw-bold"><%= @user.sex %></p>
+      </div>
+
+      <div class="form-group">
+        <p class="fw-bold"><%= @user.bloodtype %></p>
+      </div>
+    <% end %>
+
+    <div class="active pt-3 mb-5">
+      <%= link_to "編集", edit_user_registration_path, class: "btn w-100 btn-lg btn-primary fw-bold" %>
+    </div>
+
+  <%= button_to "Back", root_path, method: :get, class: "btn btn-outline-danger mb-5" %>
+</div>

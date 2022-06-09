@@ -1,0 +1,63 @@
+<% provide(:title, "連絡帳") %>
+<div class="container clearfix">
+  <div class="row">
+    <div class="col-md-3 col-12 d-none d-md-block">
+      <% if @user.admin? %>
+        <%= render partial: "card" %>
+      <% else %>
+        <%= render partial: "home/card" %>
+      <% end %>
+    </div>
+    <div class="col-md-9 col-12">
+      <%= render partial: "form" %>
+      <div class="justify-content-center align-items-center">
+        <div class="active text-center">
+          <%= button_to "Back", root_path, method: :get, class: "btn btn-outline-danger btn-lg fw-bold mx-3" %>
+        </div>
+      </div>
+      <div class="row px-3">
+        <% @posts.each do |post| %>
+          <%= link_to detail_post_path(post), class: "plain px-0" do %>
+            <% if post.user_id == current_user.id %>
+              <table class="table-border-bottom mb-3">
+                <tbody>
+                  <tr>
+                    <td class="border-none pb-0"><%= post.created_at&.strftime("%-m月%-d日(#{%w(日 月 火 水 木 金 土)[post.created_at.wday]})") %></td>
+                  </tr>
+                  <tr>
+                    <td class="border-none text-secondary"><%= post.comment %></td>
+                  </tr>
+                </tbody>
+              </table>
+            <% else %>
+              <table class="table-border-bottom mb-3">
+                <tbody>
+                  <tr>
+                    <div class="d-flex align-items-center px-0">
+                      <div class="px-2">
+                        <% if @other.picture.attached? %>
+                          <%= image_tag @other.picture.variant( resize: "35x35^", gravity: "center", crop: "35x35+0+0" ).processed, class: "rounded-circle" %>
+                        <% else %>
+                          <%= image_tag 'default_user_icon.png', class: "rounded-circle", style: "width: 35px; height: 35px;" %>
+                        <% end %>
+                      </div>
+                      <div class="fs-5">
+                        <%= @other.name %>
+                      </div>
+                    </div>
+                  </tr>
+                  <tr>
+                    <td class="border-none pt-2 pb-0"><%= post.created_at&.strftime("%-m月%-d日(#{%w(日 月 火 水 木 金 土)[post.created_at.wday]})") %></td>
+                  </tr>
+                  <tr>
+                    <td class="border-none text-secondary"><%= post.comment %></td>
+                  </tr>
+                </tbody>
+              </table>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

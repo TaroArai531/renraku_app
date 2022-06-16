@@ -10,7 +10,7 @@ services:
     ports:
       - "3306:3306"
 
-  web:
+  app:
     build: .
     ports:
       - "3000:3000"
@@ -24,6 +24,9 @@ services:
       secret_access_key: AWS_SECRET_ACCESS_KEY
     volumes:
       - .:/renraku_app
+      - public-data:/renraku_app/public
+      - tmp-data:/renraku_app/tmp
+      - log-data:/renraku_app/log
     depends_on:
       - db
       - chrome
@@ -32,7 +35,18 @@ services:
       - default
     tty: true
     stdin_open: true
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'" &&  bundle exec puma -C config/puma.rb
+
+  web:
+    build:
+      context: containers/nginx
+    volumes:
+      - public-data:/renraku_app/public
+      - tmp-data:/renraku_app/tmp
+    ports:
+      - 80:80
+    depends_on:
+      - app
 
   chrome:
     image: selenium/standalone-chrome:latest
@@ -61,3 +75,6 @@ services:
 
 volumes:
   mysql_data:
+  public-data:
+  tmp-data:
+  log-data:

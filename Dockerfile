@@ -36,6 +36,8 @@ RUN gem update --system \
     && bundle install
 COPY . renraku_app
 
+RUN mkdir -p tmp/sockets
+
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]

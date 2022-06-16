@@ -387,6 +387,7 @@ DEPENDENCIES
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
   jquery-rails
+  libv8-node (~> 16.10)
   listen (~> 3.3)
   mini_racer
   mysql2 (~> 0.5)

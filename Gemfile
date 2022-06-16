@@ -39,6 +39,7 @@ gem 'sidekiq'
 gem 'sinatra', require: false
 gem 'aws-sdk-s3', require: false
 gem 'mini_racer'
+gem 'libv8-node', '~> 16.10'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

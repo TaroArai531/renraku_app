@@ -6,10 +6,6 @@ class BulletinsController < ApplicationController
     @bulletins = Bulletin.order('created_at desc')
   end
 
-  def show
-    @bulletin = Bulletin.find_by(id: params[:id])
-  end
-
   def create
     @user = current_user
     @bulletin = Bulletin.new(bulletin_params)

@@ -20,6 +20,7 @@ ja:
             name:
               taken: "は既に使用されています。"
               invalid: "が有効ではありません。"
+              blank: "が入力されていません。"
             confirmation_token:
               invalid: "が有効ではありません。"
       messages:

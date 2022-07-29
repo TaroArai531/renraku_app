@@ -33,7 +33,7 @@ COPY Gemfile.lock /renraku_app/Gemfile.lock
 ENV BUNDLER_VERSION 2.3.9
 RUN gem update --system \
     && gem install bundler -v $BUNDLER_VERSION \
-    && bundle install
+    && bundle install --jobs=4 --retry=3
 COPY . renraku_app
 
 RUN mkdir -p tmp/sockets

@@ -30,5 +30,37 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "devise" do
+    context "ユーザー登録" do
+      it "name/email/password/password_confirmationがある場合、有効である" do
+        user = build(:user)
+        expect(user).to be_valid
+      end
+
+      it "nameがない場合、無効である" do
+        user = build(:user, name: nil)
+        user.valid?
+        expect(user.errors[:name]).to include("が入力されていません。")
+      end
+
+      it "emailがない場合、無効である" do
+        user = build(:user, email: nil)
+        user.valid?
+        expect(user.errors[:email]).to include("が入力されていません。")
+      end
+
+      it "passwordがない場合、無効である" do
+        user = build(:user, password: nil)
+        user.valid?
+        expect(user.errors[:password]).to include("が入力されていません。")
+      end
+
+      it "重複したメールアドレスの場合、無効である" do
+        user1 = create(:user, email: "test@gmail.com")
+        user2 = build(:user, email: "test@gmail.com")
+        user2.valid?
+        expect(user2.errors[:email]).to include("は既に使用されています。")
+      end
+    end
+  end
 end

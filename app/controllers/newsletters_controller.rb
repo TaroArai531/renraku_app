@@ -6,10 +6,6 @@ class NewslettersController < ApplicationController
     @newsletters = Newsletter.order('created_at desc')
   end
 
-  def show
-    @newsletter = Newsletter.find_by(id: params[:id])
-  end
-
   def create
     @user = current_user
     @newsletter = Newsletter.new(newsletter_params)

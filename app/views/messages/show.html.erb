@@ -1,0 +1,45 @@
+<% provide(:title, "トークルーム") %>
+<div class="container clearfix">
+  <div class="row">
+    <div class="col-xs-6">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="text-start fs-2"><%= @other.name %></th>
+              <th class="text-end fs-2"><%= current_user.name %></th>
+            </tr>
+          </thead>
+          <% @messages.each do |message| %>
+            <% if message.user_id == current_user.id %>
+            <tbody>
+              <tr>
+                <th></th>
+                <th class="message-box-blue">
+                  <p class="text-end"><%= message.content %></p>
+                </th>
+              </tr>
+            <% else %>
+              <tr>
+                <th class="message-box-grey">
+                  <p class="text-start"><%= message.content %></p>
+                </th>
+                <th></th>
+              </tr>
+            </tbody>
+            <% end %>
+          <% end %>
+        </table>
+
+        <%= form_with model: @message, class:"text-end pt-3", remote: true do |f| %>
+          <%= f.text_field :content %>
+          <%= f.hidden_field :room_id %>
+          <%= f.button :type => "submit", class:"btn btn-sm btn-primary" do %>
+            <span class="material-icons align-bottom">send</span>
+          <% end %>
+        <% end %>
+    </div>
+    <div class="active text-center my-3">
+      <%= button_to "Back", messages_path, method: :get, class: "btn btn-outline-danger btn-lg fw-bold mx-3" %>
+    </div>
+  </div>
+</div>

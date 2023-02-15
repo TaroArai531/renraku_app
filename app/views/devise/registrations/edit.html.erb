@@ -1,0 +1,60 @@
+<% provide(:title, "Profile") %>
+<div class="form-signin">
+  <h1 class="ff-so">Profile</h1>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="py-3 mb-3">
+      <% if @user.picture.attached? %>
+        <%= image_tag @user.picture.variant( resize: "300x300^", gravity: "center", crop: "300x300+0+0" ).processed, class: "border border-2 rounded-circle w-50" %>
+      <% else %>
+        <%= image_tag 'default_user_icon.png', class: "border border-2 rounded-circle w-50" %>
+      <% end %>
+    </div>
+
+    <div class="form-group mb-4">
+      <label for="user_picture", class="pointer">
+        <span class="material-icons md-48">add_a_photo</span>
+        <%= f.file_field :picture, class: "visually-hidden" %>
+      </label>
+    </div>
+
+    <div class="form-group mb-2">
+      <%= f.label :name %><br/>
+      <%= f.text_field :name, autofocus: true, class: "form-control col-md-5 col-sm", placeholder: "Usename" %>
+    </div>
+
+    <div class="form-group mb-2">
+      <%= f.label :email %><br/>
+      <%= f.email_field :email, class: "form-control col-md-5 col-sm", placeholder: "Email" %>
+    </div>
+
+    <% if !@user.admin? %>
+      <div class="form-group mb-2">
+        <%= f.label :dob, "誕生日" %><br/>
+        <%= f.date_field :dob, class: "form-control col-md-5 col-sm" %>
+      </div>
+
+      <div class="form-group mb-2">
+        <%= f.label :sex, "性別" %><br/>
+        <%= f.select :sex, ["未選択", "男性", "女性"], { include_blank: true }, { id: "sex", class: "form-select col-md-5 col-sm" }%>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :bloodtype, "血液型" %><br/>
+        <%= f.select :bloodtype, ["未選択", "A型", "AB型", "B型", "O型"], { include_blank: true }, { id: "bloodtype", class: "form-select col-md-5 col-sm" }%>
+      </div>
+    <% end %>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+    <% end %>
+
+    <div class="active pt-3 mb-5">
+      <%= f.submit "更新", class: "btn w-100 btn-lg btn-primary fw-bold" %>
+    </div>
+  <% end %>
+
+  <%= button_to "Back", :back, method: :get, class: "btn btn-outline-danger mb-5" %>
+</div>

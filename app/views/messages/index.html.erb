@@ -1,0 +1,28 @@
+<% provide(:title, "トークルーム") %>
+<div class="form-signin">
+  <h1 class="ff-so">Talk Room</h1>
+  <h6>トーク相手を選んでください</h6>
+  <% if current_user != @others %>
+    <% @others.each do |other| %>
+      <div class="row border-bottom pt-3">
+        <%= link_to message_path(other.id), class:"plain" do %>
+          <div class="d-flex justify-content-center align-items-center">
+            <div class="px-2">
+              <% if other.picture.attached? %>
+                <%= image_tag other.picture.variant( resize: "75x75^", gravity: "center", crop: "75x75+0+0" ).processed, class: "rounded-circle" %>
+              <% else %>
+                <%= image_tag 'default_user_icon.png', class: "rounded-circle", style: "width: 75px; height: 75px;" %>
+              <% end %>
+            </div>
+            <div class="px-2 fs-3">
+              <%= other.name %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+  <div class="active text-center my-4">
+    <%= button_to "Back", root_path, method: :get, class: "btn btn-outline-danger btn-lg fw-bold mx-3" %>
+  </div>
+</div>

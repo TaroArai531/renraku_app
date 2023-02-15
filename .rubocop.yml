@@ -1,0 +1,24 @@
+inherit_from:
+  - .rubocop_airbnb.yml
+
+AllCops:
+  Exclude:
+    - "db/**/*"
+    - "config/**/*"
+    - "script/**/*"
+    - "node_modules/**/*"
+    - "bin/*"
+    - "**/Gemfile"
+    - "vendor/**/*"
+    - ".git/**/*"
+    - "spec/**/*"
+  NewCops: enable
+
+Style/Documentation:
+  Enabled: false
+
+Style/AsciiComments:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 120

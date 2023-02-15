@@ -1,0 +1,15 @@
+<% provide(:title, "連絡帳") %>
+<div class="form-signin">
+  <h1 class="fw-bold">連絡帳</h1>
+  <h6>相手を選んでください</h6>
+  <% if current_user != @others %>
+    <% if @user.admin? %>
+      <%= render partial: "user_select_admin" %>
+    <% else %>
+      <%= render partial: "user_select" %>
+    <% end %>
+  <% end %>
+  <div class="active text-center my-4">
+    <%= button_to "Back", root_path, method: :get, class: "btn btn-outline-danger btn-lg fw-bold mx-3" %>
+  </div>
+</div>

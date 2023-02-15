@@ -1,24 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#MEMO
 
-Things you may want to cover:
+作成課題
 
-* Ruby version
+①Circle CI/CD 自動テスト＆デプロイエラー
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+②AWS個人アカウント解約済み　→ AWSサービス再登録　→ 　Credential等 再設定が必要
+　　　　　　　　　　　　　　　　→ IAM S3 RDS EC2など

@@ -8,3 +8,5 @@
 
 ②AWS個人アカウント解約済み　→ AWSサービス再登録　→ 　Credential等 再設定が必要
 　　　　　　　　　　　　　　　　→ IAM S3 RDS EC2など
+
+③Docker Desktopインストール&再設定
